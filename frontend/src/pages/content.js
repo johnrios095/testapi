@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from "react"
 import Table from "./../components/Tablecontent"
-
+import Form from "./../components/Formcontent"
 import { httpHelper } from "../helpers/httpHelper"
 
 const Contents = () => {
 	const [usercontents, setUserContents] = useState(null)
 
-	const url = "http://localhost:5000/api/Contents/getAll"
+	const url = "http://localhost:5000/api/Contents"
 	const api = httpHelper()
 
 	useEffect(() => {
 		getUserContents()
 	}, []) 
 
-	const postUser = user => {
+	const postUsercontest = user => {
 		api
 			.post(`${url}`, { body: user })
 			.then(res => getUserContents())
 			.catch(err => console.log(err)) 
 	}
 
-	const updateUser = (id, user) => {
-		api
-			.put(`${url}/${id}`, { body: user })
+	const updateUsercontest = (id, user) => {
+       		api
+			.put(`${url}/updateContent/${id}`, { body: user })
 			.then(res => getUserContents())
 			.catch(err => console.log(err))
+
 	}
 
-	const deleteUser = id => {
+	const deleteUsercontest = id => {
 		api
 			.del(`${url}/${id}`, {})
 			.then(res => getUserContents())
@@ -36,7 +37,7 @@ const Contents = () => {
 
 	const getUserContents = () => {
 		api
-			.get(`${url}`)
+			.get(`${url}`+ '/getAll')
 			.then(res => {
 				setUserContents(res)
 			})
@@ -47,14 +48,16 @@ const Contents = () => {
 
 	return (
 		<>
+    	<Form postUser={postUsercontest} />
+		
 			<div className='all-users'>
 				<h3>contents</h3>
 				<Table
 					usercontents={usercontents}
 					setUserContents={setUserContents}
-					postUser={postUser}
-					updateUser={updateUser}
-					deleteUser={deleteUser}
+					postUser={postUsercontest}
+					updateUsercontest={updateUsercontest}
+					deleteUser={deleteUsercontest}
 				/>
 			</div>
 		</>

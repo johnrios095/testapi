@@ -31,9 +31,30 @@ const addContent = async (req, res) => {
     }
 };
 
+const updateContent = async (req, res) => {
+    try {
+        const { id } = req.params;
+       
+        const { content, description } = req.body;
+
+        if (content === undefined || description === undefined ) {
+            res.status(400).json({ message: "Bad Request ..... Please fill all field." });
+        }
+
+        const contentobj = { content, description};
+        const connection = await getConnection();
+        await connection.query("UPDATE content SET ? WHERE id = ?", [contentobj, id] );
+        res.json({ message: "user updated" });
+    } catch (error) {
+        res.status(500);
+        res.send(error.message);
+    }
+};
+
 
 export const methods ={
     getContents,
-    addContent
+    addContent,
+    updateContent
    
 };

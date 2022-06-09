@@ -1,6 +1,8 @@
 import React from "react"
-import "../styles/styletable.css"
-const Table = ({ usercontents, postUser, updateUser, deleteUserContent }) => {
+import "../styles/App.css"
+import Form from "./Formcontent"
+
+const Table = ({ usercontents, postUsercontents, updateUsercontest, deleteUserContent }) => {
 	const showUpdateUserContent = id => {
 		const form = document.getElementsByClassName(`show-form-${id}`)
 		form[0].classList.toggle("hide-form")
@@ -17,6 +19,9 @@ const Table = ({ usercontents, postUser, updateUser, deleteUserContent }) => {
 						<button onClick={() => showUpdateUserContent(usercontent.id)}>Update</button>
 						<button onClick={() => deleteUserContent(usercontent.id)}>Delete</button>
 					</div>
+					</div>
+					<div className={`hide-form show-form-${usercontent.id}`}>
+					<Form userData={usercontent} postUsercontents={postUsercontents} updateUsercontest={updateUsercontest} />
 				</div>
 							</>
 		)
