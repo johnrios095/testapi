@@ -71,7 +71,8 @@ const login = async(req,res) =>{
         if(results[0].password == req.body.password){
           
           var tokenData = {
-            username: username
+            username: username,
+            
             // ANY DATA
           }
           var token = jwt.sign(tokenData, process.env.JWTPRIVATEKEY, {

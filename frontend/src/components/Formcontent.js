@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 
-const Form = ({ userData = {}, postUsercontents, updateUsercontest }) => {
+const Form = ({ userData = {}, postUsercontest, updateUsercontest }) => {
 	const [usercontents, setUser] = useState({
 		id: userData.id ?? "",
 		content: userData.content ?? "",
@@ -14,19 +14,18 @@ const Form = ({ userData = {}, postUsercontents, updateUsercontest }) => {
 	const submitUser = e => {
 		e.preventDefault()
 
-		if (usercontents.companiesId === "0") return
-
-		if (userData.id) {
+		if (userData.id!==undefined) {
 			updateUsercontest(userData.id, usercontents)
 		} else {
-			postUsercontents(usercontents)
+			
+			postUsercontest(usercontents)
 		}
 	}
 
 	return (
 		<form onSubmit={submitUser} className='row'>
 			<input
-				type='text'
+				type='hidden'
 				name='id'
 				value={usercontents.id}
 				placeholder='id'

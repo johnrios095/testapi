@@ -14,13 +14,15 @@ const Contents = () => {
 	}, []) 
 
 	const postUsercontest = user => {
+  
 		api
-			.post(`${url}`, { body: user })
+			.post(`${url}/addContent/${localStorage.getItem("username")}`, { body: user })
 			.then(res => getUserContents())
 			.catch(err => console.log(err)) 
 	}
 
 	const updateUsercontest = (id, user) => {
+    
        		api
 			.put(`${url}/updateContent/${id}`, { body: user })
 			.then(res => getUserContents())
@@ -37,7 +39,7 @@ const Contents = () => {
 
 	const getUserContents = () => {
 		api
-			.get(`${url}`+ '/getAll')
+			.get(`${url}/getAll/${localStorage.getItem("username")}`)
 			.then(res => {
 				setUserContents(res)
 			})
@@ -48,14 +50,15 @@ const Contents = () => {
 
 	return (
 		<>
-    	<Form postUser={postUsercontest} />
+    	<h3>New Content</h3>
+    	<Form postUsercontest={postUsercontest} />
 		
 			<div className='all-users'>
 				<h3>contents</h3>
 				<Table
 					usercontents={usercontents}
 					setUserContents={setUserContents}
-					postUser={postUsercontest}
+					postUsercontest={postUsercontest}
 					updateUsercontest={updateUsercontest}
 					deleteUser={deleteUsercontest}
 				/>
